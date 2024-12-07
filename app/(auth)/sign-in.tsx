@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import FormField from "@/components/FormField";
 import CustomButtom from "@/components/CustomButtom";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -16,7 +16,9 @@ const SignIn = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    router.replace("/home");
+  }
 
   return (
     <SafeAreaView className="bg-primary h-full">

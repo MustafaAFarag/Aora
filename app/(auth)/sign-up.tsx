@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import FormField from "@/components/FormField";
-import CustomButton from "@/components/CustomButtom";
+import CustomButtom from "@/components/CustomButtom";
 import { Link, router } from "expo-router";
 import { createUser } from "../../lib/appwrite";
 
@@ -18,55 +18,9 @@ const SignUp = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validatePassword = (password) => {
-    const lengthValid = password.length >= 8 && password.length <= 265;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumber = /\d/.test(password);
-
-    if (!lengthValid) {
-      throw new Error("Password must be between 8 and 265 characters.");
-    }
-    if (!(hasUpperCase && hasLowerCase && hasNumber)) {
-      throw new Error(
-        "Password must include uppercase, lowercase, a number, and a special character."
-      );
-    }
-  };
-
-  const isPasswordValid = (password) => {
-    try {
-      validatePassword(password);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-
-  const handleSubmit = async () => {
-    if (!form.username || !form.email || !form.password) {
-      Alert.alert("Error", "Please fill in all the fields");
-      return;
-    }
-
-    if (!isPasswordValid(form.password)) {
-      Alert.alert(
-        "Error",
-        "Password is invalid. Ensure it meets the required format."
-      );
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      const result = await createUser(form.email, form.password, form.username);
-      router.replace("/home");
-    } catch (error) {
-      Alert.alert("Error", error.message || "Something went wrong");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  async function handleSubmit() {
+    router.replace("/sign-in");
+  }
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -98,10 +52,10 @@ const SignUp = () => {
             value={form.password}
             handleChangeText={(e) => setForm({ ...form, password: e })}
             otherStlyes="mt-7"
-            secureTextEntry={true}
+            keyboardType="email-address"
           />
 
-          <CustomButton
+          <CustomButtom
             title="Sign Up"
             handlePress={handleSubmit}
             containerStyles="mt-7"
