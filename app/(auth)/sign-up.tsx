@@ -19,7 +19,17 @@ const SignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit() {
-    router.replace("/sign-in");
+    setIsSubmitting(true);
+
+    try {
+      await createUser(form.email, form.password, form.username);
+      Alert.alert("Success", "Account created successfully!");
+      router.replace("/home"); // Redirect after successful sign-up
+    } catch (error) {
+      Alert.alert("Error", error.message || "Sign-up failed.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
