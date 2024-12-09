@@ -7,18 +7,19 @@ import { images } from "../../constants";
 import FormField from "@/components/FormField";
 import CustomButtom from "@/components/CustomButtom";
 import { Link, router } from "expo-router";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const SignIn = () => {
+  const { setUser, setIsLogged } = useGlobalContext();
+  const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  function handleSubmit() {
+  const submit = () => {
     router.replace("/home");
-  }
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -49,7 +50,7 @@ const SignIn = () => {
 
           <CustomButtom
             title="Sign In"
-            handlePress={handleSubmit}
+            handlePress={submit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
           />
