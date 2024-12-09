@@ -10,14 +10,14 @@ import { Link, router } from "expo-router";
 import { useGlobalContext } from "@/context/GlobalProvider";
 
 const SignIn = () => {
-  const { setUser, setIsLogged } = useGlobalContext();
+  const { setUser, setIsLoggedIn } = useGlobalContext();
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
-  const submit = () => {
+  const submit = async () => {
     router.replace("/home");
   };
 
